@@ -1,0 +1,173 @@
+
+<%- include('./layout/header') %>
+<%- include('./layout/navbar') %>
+
+<div class="container" >
+    <!-- hero section start -->
+    <div class="row p-4">
+        <!-- carousel start -->
+        <div class="col-xl-8 col-md-8 col-sm-12 col-12">
+
+            <div id="carouselid" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselid" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselid" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselid" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <!-- test featured -->
+
+                    <% if(features){                        
+                        for(var i = 0; i< features.length; i++) {%>
+                                <!-- featured item  -->
+                                <div class="carousel-item <% if(i==0){%>active <% }else{ %> '' <% }%>">
+                                    <img style="height: 300px;" src="<%= features[i].image%>" class="d-block w-100" alt="<%= features[i].title%>">
+                                </div>                                
+                                <!-- featured item  -->
+                        <% }
+                    }else{ %>
+                        <option class="text-uppercase">No Category Found</option>
+                    <% } %>
+
+
+                    <!-- test featured -->
+                  
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselid" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselid" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+        <!-- carousel end -->
+        <!-- recent post section start -->
+        <div class="col-xl-4 col-md-4 col-sm-12 col-12">
+            <h3 class="text-center">Recent Post</h3>
+            <!-- recent post item -->
+            <% if(posts){
+                if(posts.length>4){
+                    for(var i = 0; i< posts.length; i++) {%>
+                        <!-- post item  -->
+                        <div class="row p-1">
+                            <div class="col-xl-4 col-md-4 col-sm-4 col-12">
+                                <img style="width:100%;height:50px;" src="<%= posts[i].image%>" alt="">
+                            </div>
+                            <div class="col-xl-8 col-md-8 col-sm-8 col-12">
+                                <h6> <a href="/artical/<%= posts[i].slug%>"><%= posts[i].title%></a> </h6>
+                                <p class="text-justify"><%= posts[i].description.substring(0, 80) %></p>
+                            </div>
+                        </div>
+                        <!-- post item  -->
+                    <% }
+                } 
+                else{
+                    for(var i = 0; i< posts.length; i++) {%>
+                        <!-- post item  -->
+                        <div class="row p-1">
+                            <div class="col-xl-4 col-md-4 col-sm-4 col-12">
+                                <img style="width:100%;height:50px;" src="<%= posts[i].image%>" alt="">
+                            </div>
+                            <div class="col-xl-8 col-md-8 col-sm-8 col-12">
+                                <h6> <a href="/artical/<%= posts[i].slug%>"><%= posts[i].title%></a> </h6>
+                                <p class="text-justify"><%= posts[i].description.substring(0, 60)%></p>
+                            </div>
+                        </div>
+                        <!-- post item  -->
+                    <% }
+                } 
+            }else{ %>
+                <option class="text-uppercase">No Category Found</option>
+            <% } %>
+            <!-- recent post item -->
+
+        </div>
+        <!-- recent post section end -->
+    </div>
+    <!-- hero section end -->
+
+    <!-- display all categories -->
+    <div class="row my-2 py-2 px-4">
+        <!--  .testimonial-group for horizontaly scroll -->
+        <h6>All Categories</h6>        
+
+        <% if(category){
+            if(category.length>6){
+                for(var i = 0; i< category.length; i++) {%>
+                    <!-- category item  -->
+                    <div class="col-xl-2 col-md-2 col-sm-4 col-6 p-1 ">
+                        <div class="card w-100 h-100 rounded">
+                            <img class="w-100 h-100" src="<%= category[i].image%>" alt="category item">
+                            <p class="text-center"> <a href="/category/<%= category[i].slug%>"><%= category[i].title%></a> </p>
+                        </div>
+                    </div>
+                    <!-- category item  -->
+                <% }
+            } 
+            else{
+                for(var i = 0; i< category.length; i++) {%>
+                    <!-- category item  -->
+                    <div class="col-xl-2 col-md-2 col-sm-4 col-6 p-1 ">
+                        <div class="card w-100 h-100 rounded">
+                            <img class="w-100 h-100" src="<%= category[i].image%>" alt="category item">
+                            <p class="text-center"> <a href="/category/<%= category[i].slug%>"><%= category[i].title%></a> </p>
+                        </div>
+                    </div>
+                    <!-- category item  -->
+                <% }
+            } 
+        }else{ %>
+            <option class="text-uppercase">No Category Found</option>
+        <% } %>
+
+        <a href="/admin/allcategory" class="d-block text-end ">See all</a>
+    </div>
+    <!-- display categories -->
+
+        <!-- display third categories -->
+        <% if(category){
+            for(var i = 0; i< category.length; i++) {%>
+                <div class="row my-2 py-2 px-4">                    
+
+                    <% if(posts){
+                        for(var j = 0; j< posts.length; j++) {
+                            if(category[i].title == posts[j].category){%>
+
+                                <h6><%= category[i].title %></h6>  
+
+                                <!-- post item  -->
+                                <div class="col-xl-2 col-md-2 col-sm-4 col-6 p-1 ">
+                                    <div class="card w-100 h-100 rounded">
+                                        <img class="w-100 h-100" src="<%= posts[j].image%>" alt="<%= posts[j].title%>">
+                                        <p class="text-center"> <a href="/artical/<%= posts[j].slug%>"><%= posts[j].title%></a> </p>
+                                    </div>
+                                </div>
+                                <!-- post item  -->
+                                <a href="/admin/allpost" class="d-block text-end ">See all</a>
+
+                            <%} 
+                        }
+
+
+                    }else{ %>
+                        <option class="text-uppercase">No post Found</option>
+                    <% } %>
+
+
+                </div>
+                
+                    
+            <%} 
+        }else{ %>
+            <option class="text-uppercase">No Category Found</option>
+        <% } %>
+        
+        <!--display categories -->
+
+</div>
+
+<%- include('./layout/topfooter') %>
+<%- include('./layout/footer') %>

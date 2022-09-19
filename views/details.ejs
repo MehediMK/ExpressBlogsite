@@ -1,0 +1,26 @@
+<%- include('./layout/header') %>
+<%- include('./layout/navbar') %>
+
+<!-- content section start -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+
+            <img class="image-thamnail" style="width: 300px;height:400px;" src="<%= post.image%>" alt="<%= post.title%>">
+        </div>
+    </div>
+    <div class="row">
+        <h1><%= post.title%></h1>
+        <span><%= post.date%></span>
+            <div class="col-12">
+                <%= post.description%>
+            </div>
+    </div>
+    
+</div>
+
+<!-- content section end -->
+
+<%- include('./layout/topfooter') %>
+<%- include('./layout/footer') %>
